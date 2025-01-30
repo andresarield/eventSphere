@@ -6,7 +6,9 @@ const cors = require('cors');
 const app = express();
 const PORT = 5000;
 
-console.log('API Key:', process.env.API_KEY); // Debug: Check if API_KEY is loaded
+const apiKey = process.env.API_KEY;
+
+console.log('API Key:', apiKey); // Log the API key to the console
 
 app.use(cors());
 app.use(express.json());
@@ -14,7 +16,7 @@ app.use(express.json());
 app.get('/api/events', async (req, res) => {
     try {
         const keyword = req.query.keyword || 'music';
-        const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.API_KEY}&keyword=${keyword}`;
+        const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&keyword=${keyword}`;
         
         console.log('Fetching data from:', apiUrl); // Log the API URL being called
 
