@@ -15,8 +15,13 @@ app.use(express.json());
 
 app.get('/api/events', async (req, res) => {
     try {
-        const keyword = req.query.keyword || 'music';
-        const apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${apiKey}&keyword=${keyword}`;
+        const { keyword, category, date, location } = req.query;
+        let apiUrl = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${process.env.API_KEY}`;
+
+        if (keyword) apiUrl += `&keyword=${keyword}`;
+        if (category) apiUrl += `&classificationName=${category}`;
+        if (date) apiUrl += `&localDate=${date}`;
+        if (location) apiUrl += `&city=${location}`;
         
         console.log('Fetching data from:', apiUrl); // Log the API URL being called
 
