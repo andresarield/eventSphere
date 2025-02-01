@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './styles.css'
+import Map from './Map.js';
+import './styles.css';
 
 const App = () => {
     const [events, setEvents] = useState([]);
     const [keyword, setKeyword] = useState('music');
     const [category, setCategory] = useState('');
-    const [date, detDate] = useState('');
+    const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-
 
     const fetchEvents = async () => {
         try {
@@ -55,6 +55,7 @@ const App = () => {
                 />
                 <button onClick={fetchEvents}>Search</button>
             </div>
+            <Map events={events} />
             <div className="events-list">
                 {events.map((event) => (
                     <div key={event.id} className="event-card">

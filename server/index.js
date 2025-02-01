@@ -1,4 +1,5 @@
-require('dotenv').config(); // Load environment variables
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '.env') }); // Explicitly specify the path to .env
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
