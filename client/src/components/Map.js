@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
     shadowUrl: markerShadow,
 });
 
-const Map = ({ events }) => {
+const Map = React.memo(({ events }) => {
     return (
         <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: '400px', width: '100%' }}>
             <TileLayer
@@ -24,20 +24,22 @@ const Map = ({ events }) => {
             />
             {events.map((event) => (
                 event._embedded?.venues?.map((venue) => (
-                    <Marker
-                        key={venue.id}
-                        position={[venue.location.latitude, venue.location.longitude]}
-                    >
-                        <Popup>
-                            <strong>{event.name}</strong>
-                            <br />
-                            {venue.name}
-                        </Popup>
-                    </Marker>
+                    venue.location && ( // Check if venue.location exists
+                        <Marker
+                            key={venue.id}
+                            position={[venue.location.latitude, venue.location.longitude]}
+                        >
+                            <Popup>
+                                <strong>{event.name}</strong>
+                                <br />
+                                {venue.name}
+                            </Popup>
+                        </Marker>
+                    )
                 ))
             ))}
         </MapContainer>
     );
-};
+});
 
 export default Map;
