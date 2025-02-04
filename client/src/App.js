@@ -21,10 +21,12 @@ const App = () => {
             return;
         }
 
+        const newDate = new Date(`${date}T18:00:00.000Z`);
+        console.log('NewDate: ', newDate);
+        const formatDate = newDate.toISOString().replace(".000", "");
         try {
-            const formattedDate = date ? new Date(date).toISOString().split('T')[0] : '';
             const response = await axios.get('http://localhost:5000/api/events', {
-                params: { keyword, category, date: formattedDate, location },
+                params: { keyword, category, date: formatDate, location },
             });
             console.log('API Response:', response.data);
 
@@ -89,6 +91,7 @@ const App = () => {
                     placeholder="Location"
                     aria-label="Location"
                 />
+                <button onClick={fetchEvents}>Search</button>
             </div>
             {events.length === 0 ? (
                 <p>No events found. Try a different search.</p>

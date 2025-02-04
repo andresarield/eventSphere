@@ -21,9 +21,9 @@ app.get('/api/events', async (req, res) => {
 
         if (keyword) apiUrl += `&keyword=${keyword}`;
         if (category) apiUrl += `&classificationName=${category}`;
-        if (date) apiUrl += `&localDate=${date}`;
+        if (date) apiUrl += `&startDateTime=${date}&endDateTime=${date}`;
         if (location) apiUrl += `&city=${location}`;
-        
+
         console.log('Fetching data from:', apiUrl); // Log the API URL being called
 
         const response = await axios.get(apiUrl);
