@@ -1,0 +1,40 @@
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 15px;
+    /* Padding for clear button */
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    /* Rounded corners */
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.clear-button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.clear-button:hover {
+    color: #333;
+}

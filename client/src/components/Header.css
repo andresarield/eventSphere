@@ -1,0 +1,17 @@
+.header {
+    background-color: #0e2844;
+    color: rgb(0, 255, 128);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #e42020;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.header p {
+    margin: 5px 0 0;
+    font-size: 1.2rem;
+}

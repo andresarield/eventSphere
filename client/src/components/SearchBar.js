@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import { debounce } from 'lodash'; // For debouncing
 import PropTypes from 'prop-types'; // For prop type validation
+import './SearchBar.css';
 
 const SearchBar = ({ placeholder = "Search...", onSearch, delay = 300 }) => {
     const [query, setQuery] = useState(''); // State to manage the search query
