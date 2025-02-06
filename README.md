@@ -1,2 +1,400 @@
 EventSphere: Event Finder App
 EventSphere is a web application built with React (frontend) and Node.js (backend) that allows users to search for events, filter them by category or location, and view them on a map. The app integrates with the Ticketmaster API to fetch event data.
+
+```
+eventSphere
+├─ .git
+│  ├─ COMMIT_EDITMSG
+│  ├─ config
+│  ├─ description
+│  ├─ FETCH_HEAD
+│  ├─ HEAD
+│  ├─ hooks
+│  │  ├─ applypatch-msg.sample
+│  │  ├─ commit-msg.sample
+│  │  ├─ fsmonitor-watchman.sample
+│  │  ├─ post-update.sample
+│  │  ├─ pre-applypatch.sample
+│  │  ├─ pre-commit.sample
+│  │  ├─ pre-merge-commit.sample
+│  │  ├─ pre-push.sample
+│  │  ├─ pre-rebase.sample
+│  │  ├─ pre-receive.sample
+│  │  ├─ prepare-commit-msg.sample
+│  │  ├─ push-to-checkout.sample
+│  │  ├─ sendemail-validate.sample
+│  │  └─ update.sample
+│  ├─ index
+│  ├─ info
+│  │  └─ exclude
+│  ├─ logs
+│  │  ├─ HEAD
+│  │  └─ refs
+│  │     ├─ heads
+│  │     │  └─ main
+│  │     └─ remotes
+│  │        └─ origin
+│  │           └─ main
+│  ├─ objects
+│  │  ├─ 04
+│  │  │  ├─ 55c7ab7da469eb3d845f321b2f8c6180ca856a
+│  │  │  ├─ c01ba7ba0830ccdc49fce1c7257114ed81e68b
+│  │  │  └─ d2acabf9010c9c5605031bfe98a884cec45e19
+│  │  ├─ 05
+│  │  │  └─ 1e68957b64903963c5faf56b0a992b1e697060
+│  │  ├─ 07
+│  │  │  └─ bf27583cc3070a7bb6846a842a6b4badb863c1
+│  │  ├─ 09
+│  │  │  └─ 67ef424bce6791893e9a57bb952f80fd536e93
+│  │  ├─ 0a
+│  │  │  ├─ 5568b3eb72786b7d025f317905c26d9b2a59ce
+│  │  │  └─ 68004bc420c5023a7e139b5191c4a85b34849b
+│  │  ├─ 0c
+│  │  │  ├─ 296a4d8dfe81c11efdd41e6e7ad5e0f54f6b4f
+│  │  │  └─ 538f86aa502573586c7248c62ac383146d72f7
+│  │  ├─ 11
+│  │  │  ├─ 5e59fc37cd0c14a5b70fd2532a621611980841
+│  │  │  └─ bcd78816c845052a23557f67ab017a7fdb8554
+│  │  ├─ 13
+│  │  │  ├─ 8e7c557886e33de3aa43f1cef5df863f6c08a6
+│  │  │  └─ e439c834fbb3f666b19b16b39cce9e7c5c1d40
+│  │  ├─ 15
+│  │  │  └─ 29346847fff4125080377848866cac35763092
+│  │  ├─ 16
+│  │  │  └─ 1e82a900db3f74b1db09127c74cd7fb7a23c2b
+│  │  ├─ 1a
+│  │  │  └─ a3d7bf318ca7ab4607ee74a72cb192f4734aa6
+│  │  ├─ 1b
+│  │  │  ├─ 914b17c371c755b67401daa53f0ba5a9ad9beb
+│  │  │  └─ b6f08744d542a7d2fe75b064e23a1df812d0d8
+│  │  ├─ 21
+│  │  │  └─ 01339229139579c18da1a23761519d6966aa08
+│  │  ├─ 23
+│  │  │  └─ f0a6f9fe9bb67d100b24cb332b42b42c0493d6
+│  │  ├─ 24
+│  │  │  └─ d74d5b96b409f8c5a41f2e29df9105789da03d
+│  │  ├─ 28
+│  │  │  └─ da6b1f9184787278ad3dff51187ddb5fa41f2e
+│  │  ├─ 29
+│  │  │  └─ 71cb19ef5f4f11fa85cf83ef3873c9e0daf783
+│  │  ├─ 2d
+│  │  │  ├─ 1fb0405eb7d8101b410b04da03096880479471
+│  │  │  ├─ 40f114c3bb0f845ee1154cfc4d3b68a3a169b9
+│  │  │  └─ f54e4df4c3d861e7bf3047ff83f7b38b264b43
+│  │  ├─ 31
+│  │  │  └─ e64eda24a3a31bfa436ec2858e5b6c61f516ba
+│  │  ├─ 32
+│  │  │  └─ 21477373d23efa36b7de37c0f26fb3054ec6a9
+│  │  ├─ 33
+│  │  │  └─ 1aef06bf22bc312f53071598310ae8b973402b
+│  │  ├─ 35
+│  │  │  └─ 2936c6c3d0486a1872521f02284f215c4d5831
+│  │  ├─ 36
+│  │  │  ├─ 3f55ecf8aa7a30ba5d9fd2fb6712e31a9a1d79
+│  │  │  └─ e643ecd2cffaf6596c5734debd01086231c2d9
+│  │  ├─ 37
+│  │  │  └─ 095f9833dcea5cfb56186f7c16d7af459a6c9a
+│  │  ├─ 38
+│  │  │  ├─ 3bca17344b923a09601580d91c85000f2b278d
+│  │  │  ├─ 8c24c6ae0be722622c550296e904f056e28c63
+│  │  │  └─ f7f449b7b4d211f91436a70f734d23453a2c96
+│  │  ├─ 39
+│  │  │  ├─ 46591cce61fb57aa143c07fa71bd2c11e02cdb
+│  │  │  └─ d82d18ae431fa95d3bce6dbeac4fd6d1e81cc0
+│  │  ├─ 3c
+│  │  │  └─ e53c83e7999f67faaa6a3b66e002b9a74c10f2
+│  │  ├─ 3e
+│  │  │  └─ 8086b0d71cd87f63bd082981cb941e7de7fe50
+│  │  ├─ 3f
+│  │  │  ├─ 9136653a20f69936ea04c49f3677aa392c7593
+│  │  │  └─ d8c361aa3aadbb717c7b8f5f4a4531be50ca0b
+│  │  ├─ 40
+│  │  │  └─ 41dadd85ddfebbc2cf2b052fb3b5e71057432b
+│  │  ├─ 41
+│  │  │  └─ 7c6cea02e09057f9bba07fc01555553acbd750
+│  │  ├─ 45
+│  │  │  └─ 6751f0a8a26971f34ef6d01a019fa45d5d901b
+│  │  ├─ 49
+│  │  │  └─ c5ca09e7787aa3c32ef5044ff4a2e89428e5b1
+│  │  ├─ 4d
+│  │  │  └─ fc94578ab63c4d4a6585df9a2cbec1d0ceeb54
+│  │  ├─ 4e
+│  │  │  └─ 91f6956699a1814dcba4e5763af745a869b162
+│  │  ├─ 51
+│  │  │  └─ 322c52e55ada018a58cc0455cf31d3b98faa1f
+│  │  ├─ 53
+│  │  │  └─ 1a9530036059ba6f9f7f45e01d90d5463e5c9f
+│  │  ├─ 54
+│  │  │  └─ 321788137be8b6e54f7d94d992fae36abaeb4f
+│  │  ├─ 58
+│  │  │  ├─ c06276f4957f99eab53bee320028136e5a8dfc
+│  │  │  └─ ca59c69f78c1309816240e190479679ab59756
+│  │  ├─ 5b
+│  │  │  └─ 7a1127b082008e1de945301d2b9b4186428d86
+│  │  ├─ 5f
+│  │  │  ├─ 6f947f979a919ad6a807d21e460fd17f2e924b
+│  │  │  └─ d361842801f45f24e7dd00825961c806967eb2
+│  │  ├─ 60
+│  │  │  └─ 18b03661e2be2a6db06e7a80a29b005d7cce38
+│  │  ├─ 61
+│  │  │  └─ 35d95cb3c7780df5f4137f969322324fc3d6dd
+│  │  ├─ 65
+│  │  │  └─ fc3d47d71ec8b4a4fd4d9bc9f3934eed3d96eb
+│  │  ├─ 66
+│  │  │  └─ 0ae12e9ab205144840ba21e68996a0001876d0
+│  │  ├─ 69
+│  │  │  └─ b02090ce22e86f9398ada61a93fc7c53dd9910
+│  │  ├─ 6c
+│  │  │  └─ e64b0a754102265e4d22fff64dd8573767424d
+│  │  ├─ 6d
+│  │  │  ├─ 4d5f61a050af57452454995d5b377d1c9b91db
+│  │  │  └─ 7b9517a0f5fed829f0daf962df4b6f8f781a18
+│  │  ├─ 6f
+│  │  │  └─ c875fda589d2b300506075a5073d7e765707a1
+│  │  ├─ 73
+│  │  │  └─ e7f646a1141cff1ea6e3f1b2b416c5f6dbfb3a
+│  │  ├─ 74
+│  │  │  └─ 125a2d45092d0a9cc063e8518e694cae057b97
+│  │  ├─ 76
+│  │  │  └─ f2ab0a08b6ed006e36fc6f52af8f6405287709
+│  │  ├─ 77
+│  │  │  └─ ccae074e3cec1e5c82502caa4ba2132dc59050
+│  │  ├─ 79
+│  │  │  └─ 8fdc4163a1f0fe8acc670037a3e45ef108e702
+│  │  ├─ 7c
+│  │  │  └─ 43fd3158ae5c8df47863d27117c0dd148a9f9c
+│  │  ├─ 7d
+│  │  │  └─ 00722e90ca70f9ecbc7fe758d96d33528d66d0
+│  │  ├─ 7e
+│  │  │  ├─ 6b182b83d2167ba31043c78a12726230a984bf
+│  │  │  └─ a9d896f5a78b00a77f3d542cee95527a16ef0b
+│  │  ├─ 7f
+│  │  │  └─ 440c446425b0856abdfe539efbd87d8da21a42
+│  │  ├─ 80
+│  │  │  └─ 494e50e33e571476a843388cfe1f45e23fb752
+│  │  ├─ 81
+│  │  │  └─ 04b9adbdd10dfc03cb539a9ddf16b70169e9d1
+│  │  ├─ 84
+│  │  │  └─ 6fa5975281b278cfdd30a4044aa1eb4e45f91e
+│  │  ├─ 86
+│  │  │  └─ 00d77c7c7a17ac0e05cde4ad1553723a91a34a
+│  │  ├─ 8a
+│  │  │  └─ 2a2dbccbb688558ac96f734e55a52cf332cf1e
+│  │  ├─ 8d
+│  │  │  └─ 982a27b9ab460c0b661f2164a21323c95cb3fa
+│  │  ├─ 8e
+│  │  │  └─ 19e94fb4b08c5aa4c68325c115c4ed394457e3
+│  │  ├─ 8f
+│  │  │  └─ c4842dc19a7c780c8b394f8c6f3acd1036f566
+│  │  ├─ 90
+│  │  │  └─ 197efddb7ffade5e4c7c5654d24108b4bd8e42
+│  │  ├─ 92
+│  │  │  └─ af9438dc1a4c548871daaa2df058dd0ab2771e
+│  │  ├─ 93
+│  │  │  └─ 56ec3bc8db991e2cc07ea9a60cd3434af36cfd
+│  │  ├─ 94
+│  │  │  ├─ 1c9117e7fd84f803c989e5f518618d9a9c87c7
+│  │  │  └─ 5dbc0d90e87427346986ce0a6353e6268c4087
+│  │  ├─ 95
+│  │  │  └─ 176bb11c5d2c94e447f702b64a6c1a68b23512
+│  │  ├─ 99
+│  │  │  └─ 732f25d7814d331d60e46c0aee4623298a8088
+│  │  ├─ 9b
+│  │  │  └─ ba6a41d8bacf2d69862f9900c30ca72525b4d7
+│  │  ├─ 9e
+│  │  │  └─ 1bc8c7e2222f132c6a15921174632de1935001
+│  │  ├─ 9f
+│  │  │  └─ b5f9d23a318b5f13c64a08eb0ca27df29e7698
+│  │  ├─ a1
+│  │  │  └─ 0789eb8c3e1e3e7e70ac1b778bc5f3b3297b44
+│  │  ├─ a2
+│  │  │  └─ 5b5198ed327b45a6460a7aa6aa0f86da029021
+│  │  ├─ a5
+│  │  │  └─ 0be9c3a14e9a4df83c7386aeff8575a443593e
+│  │  ├─ b3
+│  │  │  └─ c5d76475dc0e5adea18fd6f89a52f6ec0b1ef0
+│  │  ├─ b4
+│  │  │  ├─ 12304bb34e3d24fe2ee646143c6468a7cccc8a
+│  │  │  └─ bbefe787e0ef24fd1c4142c7b00d4cf179a36b
+│  │  ├─ b7
+│  │  │  └─ a253a5477f3ac326612e88afc4230ba1f3ea81
+│  │  ├─ b8
+│  │  │  └─ 8d21b176995e7fd57a13cc47a52f7a7fa070e9
+│  │  ├─ ba
+│  │  │  └─ 1c58004b0e6f7d7166fe6136b21effbf33f602
+│  │  ├─ bb
+│  │  │  └─ 1f973ac006d1500d03d682da6d616f0158d66a
+│  │  ├─ bc
+│  │  │  └─ 243685f9e916569230c1d6567b8295ad1ddb4b
+│  │  ├─ be
+│  │  │  └─ 88344202fbbed0fbe491cbb2e2bde32b6b2843
+│  │  ├─ bf
+│  │  │  ├─ a499cf950b4f13b5f8b8b0e9e789260f66a2c9
+│  │  │  └─ db4c3a2e879428d4b52499856db791972fad40
+│  │  ├─ c4
+│  │  │  └─ fbb49f29222fd8038213f5c77f91f7fa80fcf3
+│  │  ├─ c5
+│  │  │  └─ f1971fae3b50701c500cb1bd734d137be71926
+│  │  ├─ c7
+│  │  │  ├─ 9aab76447d13b4f415286cbaae0c62bef78847
+│  │  │  └─ a1c329c3815b4f25c8d360c64bb86821439da7
+│  │  ├─ c8
+│  │  │  └─ e374667b0d62e104a4d84e2272f964a94c9be0
+│  │  ├─ ca
+│  │  │  └─ bacb1faf3eaa215201060416487f98e4c15ce0
+│  │  ├─ cb
+│  │  │  └─ 6657a25c375e9cbf920695fc162bf80bae77fa
+│  │  ├─ cc
+│  │  │  ├─ 2f31dba344d79ea3a8d1d9099ea4738435420f
+│  │  │  ├─ 78ce33720244ea8c6d48fa59c816468e1f86d1
+│  │  │  └─ b1fd05fbd2349884d769f72294a5bc83bed9a4
+│  │  ├─ ce
+│  │  │  └─ 1649fd8316bf99c32aaa82a6bb549db7960ef4
+│  │  ├─ cf
+│  │  │  ├─ 23a7f3fafbcd8ff2832ec764959be6fccd0702
+│  │  │  ├─ c68a052f95523dcf767e60cd8b3678cb8fb01c
+│  │  │  └─ cfab686444b1f3456511158d3ae7adc6d2887e
+│  │  ├─ d0
+│  │  │  └─ c6786382f8f1c71f3d473c9fc6042b10a283dc
+│  │  ├─ d2
+│  │  │  ├─ a3956a08e159932fc2049792ee96cdcd1fb088
+│  │  │  └─ a46ee24a5670da0ef896f3b2f2996d77a42d58
+│  │  ├─ d3
+│  │  │  └─ 53e1f45647a7ec497ff4207f3bbd8af488e08e
+│  │  ├─ d5
+│  │  │  ├─ 43ff57c09bb9ddf53ea048f1db8fdb1929d14f
+│  │  │  └─ 4f0f77c95254c00bf7aebe437ed991cb3a0771
+│  │  ├─ d6
+│  │  │  └─ 5b267932b408e3df51bae5ff269c1150ff4630
+│  │  ├─ d9
+│  │  │  └─ 3563b40ae738be152927ea1a3a829a37206945
+│  │  ├─ da
+│  │  │  └─ f0b9b73db1812ff474f0c93f8fb16bc72e3c82
+│  │  ├─ db
+│  │  │  ├─ 3ccaf1fcf6eb56984996aae03f17874a28ae21
+│  │  │  └─ 810d9dee8fb577ae0dcbc3e7f12770c91a1c21
+│  │  ├─ dd
+│  │  │  └─ b3b19eb14cf17b71398aeb204efe2d1fa7a849
+│  │  ├─ de
+│  │  │  └─ f6e09a43edc9b577e6c796a13e9ac834889ba6
+│  │  ├─ e0
+│  │  │  ├─ 0ba36c9bf4c96c4d7752f72f950d9f9cb155fa
+│  │  │  └─ aa901c40b86a5eb240f2ccb815721b10d387de
+│  │  ├─ e1
+│  │  │  └─ e864d32fbfa2201e59dcb6e511e6fe8963bdb6
+│  │  ├─ e3
+│  │  │  └─ a18da18e80c14b3f2312279f6bede6c9ee4fa9
+│  │  ├─ e5
+│  │  │  └─ 6c396134f5f6eef68b4c3ae0d0f2c2f5b00dd6
+│  │  ├─ e6
+│  │  │  └─ 9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+│  │  ├─ e9
+│  │  │  └─ 6dd6ab8eec36ab515f7282062ccb1270c866a2
+│  │  ├─ ea
+│  │  │  └─ 0316b2635a7297d3202e1c8aad406c84269b5c
+│  │  ├─ eb
+│  │  │  └─ c06e20ac7ebaac1605464f59a68b8a01cf4095
+│  │  ├─ f0
+│  │  │  └─ c700ec7c6c261efcc82ebb9e780d03c2fd6147
+│  │  ├─ f1
+│  │  │  └─ 270e67f00c6cc10bcd6fb824a2f7b42b58c0eb
+│  │  ├─ f2
+│  │  │  └─ 0f28e0fd332e356ea3ba3719ac08222efa0cdc
+│  │  ├─ f3
+│  │  │  ├─ 186474792983505fff04046f6b4a6a95db52d4
+│  │  │  └─ 2492123ea0c8b72e75b80dae16bc4dab0f218b
+│  │  ├─ f4
+│  │  │  └─ fd1d565d70272e4b07dccf34b0a27815e060b3
+│  │  ├─ f6
+│  │  │  └─ b96254c3f0d003d9d47eddffc7aa1d962fbf84
+│  │  ├─ f7
+│  │  │  └─ 234a20d6b57ddc46af0d2a3757cd4c9c3b96de
+│  │  ├─ f8
+│  │  │  ├─ b4f82410b93275d4b5ad74bd6548deaae67912
+│  │  │  └─ f7f99733e8425d984edfd9a154ebaadb128410
+│  │  ├─ f9
+│  │  │  └─ 562a8db907f03a952788ba6ab967b7ae67bf52
+│  │  ├─ fa
+│  │  │  ├─ c6e6b42d51cc977a04fda076978b0c24674208
+│  │  │  └─ fe6abc774a87a7f17fdf5c2226789a69d3eac6
+│  │  ├─ fb
+│  │  │  ├─ 2f148b52a4ee384813dcc617b74af8f003d3f8
+│  │  │  └─ a0efdc38571fb6cac2ea53ea9112c250791dbd
+│  │  ├─ fc
+│  │  │  └─ a21c5d55e0a2de03ba6fb23c7a05eda17dc1b2
+│  │  ├─ fd
+│  │  │  └─ 94070445fed9258c525283ad5a47fabd0252e1
+│  │  ├─ fe
+│  │  │  └─ 642b170cb950df1c593bcbdc5e7f8c8817ee6c
+│  │  ├─ ff
+│  │  │  ├─ c342366245671a97bc91c09de7cfcd231fdd73
+│  │  │  └─ cbfe63f770f140e0ec546caa7c961e85000812
+│  │  ├─ info
+│  │  └─ pack
+│  ├─ ORIG_HEAD
+│  └─ refs
+│     ├─ heads
+│     │  └─ main
+│     ├─ remotes
+│     │  └─ origin
+│     │     └─ main
+│     └─ tags
+├─ .gitignore
+├─ client
+│  ├─ .babelrc
+│  ├─ dist
+│  │  ├─ bundle.js
+│  │  └─ bundle.js.LICENSE.txt
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ public
+│  │  └─ index.html
+│  ├─ src
+│  │  ├─ api
+│  │  │  └─ ticketmasterApi.js
+│  │  ├─ App.js
+│  │  ├─ assets
+│  │  │  ├─ fonts
+│  │  │  ├─ forms
+│  │  │  ├─ images
+│  │  │  ├─ styles
+│  │  │  │  ├─ Header.css
+│  │  │  │  └─ SearchBar.css
+│  │  │  └─ svg
+│  │  ├─ components
+│  │  │  ├─ common
+│  │  │  │  └─ SearchBar.jsx
+│  │  │  ├─ events
+│  │  │  │  ├─ EventDetails.jsx
+│  │  │  │  ├─ EventList.jsx
+│  │  │  │  └─ Map.jsx
+│  │  │  ├─ forms
+│  │  │  │  └─ SearchForm.jsx
+│  │  │  └─ layout
+│  │  │     ├─ Footer.js
+│  │  │     └─ Header.js
+│  │  ├─ controllers
+│  │  │  ├─ eventController.js
+│  │  │  ├─ eventDetailsController.js
+│  │  │  └─ routesController.js
+│  │  ├─ hooks
+│  │  │  └─ useDebouncedFetch.js
+│  │  ├─ index.js
+│  │  ├─ pages
+│  │  │  ├─ About.js
+│  │  │  ├─ Home.jsx
+│  │  │  └─ SearchResults.jsx
+│  │  ├─ styles.css
+│  │  └─ utils
+│  │     └─ dateUtils.js
+│  └─ webpack.config.js
+├─ package-lock.json
+├─ package.json
+├─ README.md
+└─ server
+   ├─ .env
+   ├─ index.js
+   ├─ package-lock.json
+   └─ package.json
+
+```

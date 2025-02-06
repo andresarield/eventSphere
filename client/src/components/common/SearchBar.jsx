@@ -1,27 +1,34 @@
-// components/SearchBar.js
 import React, { useState, useCallback } from 'react';
-import { debounce } from 'lodash'; // For debouncing
-import PropTypes from 'prop-types'; // For prop type validation
+import { debounce } from 'lodash';
+import PropTypes from 'prop-types';
 import './SearchBar.css';
 
-const SearchBar = ({ placeholder = "Search...", onSearch, delay = 300 }) => {
-    const [query, setQuery] = useState(''); // State to manage the search query
+const SearchBar = ({ placeholder = "Search...", onSearch, delay = 300, loading = false }) => { // Componente de barra de búsqueda.
+    const [query, setQuery] = useState(''); // Estado del pedido de búsqueda.
 
-    // Debounced search function
-    const debouncedSearch = useCallback(
-        debounce((searchQuery) => {
-            if (onSearch) {
-                onSearch(searchQuery); // Trigger the onSearch callback
+    const debouncedSearch = useCallback( // Función de búsqueda con retraso.
+        debounce((searchQuery) => { // Utiliza la función de debounce de Lodash.
+            if (onSearch) { // Verifica si la función de búsqueda está definida.
+                onSearch(searchQuery); // Activa el callback onSearch con la consulta de búsqueda.
             }
         }, delay),
-        [onSearch, delay] // Recreate debounced function if onSearch or delay changes
+        [onSearch, delay]
     );
 
-    // Handle input change
-    const handleInputChange = (e) => {
-        const searchQuery = e.target.value;
-        setQuery(searchQuery); // Update the query state
-        debouncedSearch(searchQuery); // Trigger debounced search
+    const handleInputChange = (e) => { // Maneja el cambio en el campo de búsqueda.
+        const searchQuery = e.target.value.trim(); // Obtiene el valor del campo de búsqueda.
+        setQuery(searchQuery); // Actualiza el estado del pedido.
+        if (searcQuery) {
+            debouncedSearch(searchQuery); // Sólo se activa la búsqueda si el pedido de búsqueda no está vacío.
+        } else {
+            onSearch(''); // Opcionalmente podés activar una búsqueda vacía.
+        }
+    };
+
+    // Limpia el campo de búsqueda.
+    const clearInput = () => {
+        setQuery(''); // Borra el estado de la búsqueda
+        onSearch(''); // Opcionalmente podés activar una búsqueda vacía.
     };
 
     return (
@@ -32,13 +39,19 @@ const SearchBar = ({ placeholder = "Search...", onSearch, delay = 300 }) => {
                 value={query}
                 onChange={handleInputChange}
                 className="search-input"
-                aria-label="Search" // Accessibility improvement
+                aria-label="Search"
+                disabled={loading} // Deshabilita el campo de búsqueda si está cargando.
             />
+            {query && (
+                <button onClick={clearInput} className="clear-button" aria-label="Clear search">
+                    ×
+                </button>
+            )}
+            {loading && <span className="loading-indicator">Loading...</span>}
         </div>
     );
 };
 
-// Prop type validation
 SearchBar.propTypes = {
     placeholder: PropTypes.string,
     onSearch: PropTypes.func.isRequired,

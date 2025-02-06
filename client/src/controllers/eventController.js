@@ -1,5 +1,7 @@
-import axios from 'axios';
+import { formatDateForAPI } from "../utils/dateUtils.js";
+import { fetchEventsFromAPI } from "../api/ticketmasterApi.js";
 
+// Obtiene eventos basados en criterios de búsqueda.
 export const fetchEvents = async ({ keyword, category, date, location }) => {
     if (!keyword && !category && !date && !location) {
         console.log('No search criteria provided. Skipping API call.');
@@ -7,24 +9,22 @@ export const fetchEvents = async ({ keyword, category, date, location }) => {
     }
 
     try {
-        let formatDate = null;
-        if (date) {
-            const newDate = new Date(`${date}T18:00:00.000Z`);
-            if (isNaN(newDate.getTime())) {
-                console.error('Invalid date:', date);
-                return [];
-            }
-            formatDate = newDate.toISOString().replace(".000", "");
-        }
+        // Formatea la fecha usando la función de utilidad.
+        const formattedDate = formatDateForAPI(date);
 
-        const response = await axios.get('http://localhost:5000/api/events', {
-            params: { keyword, category, date: formatDate, location },
-        });
+        // Prepare query parameters
+        const queryParams = {
+            keyword: keyword || undefined,
+            category: category || undefined,
+            date: formattedDate,
+            location: location || undefined,
+        };
 
-        console.log('API Response:', response.data);
-        return response.data._embedded?.events || [];
+        // Obtiene eventos desde la API usando los parámetros preparados.
+        const events = await fetchEventsFromAPI(queryParams);
+        return events;
     } catch (error) {
-        console.error('Error fetching events:', error.response ? error.response.data : error.message);
+        console.error('Error in fetchEvents:', error.message);
         return [];
     }
 };
