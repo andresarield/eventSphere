@@ -1,7 +1,6 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Convert the module URL to a file path
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -15,10 +14,13 @@ export default {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                    },
                 },
             },
             {
@@ -36,8 +38,11 @@ export default {
                         },
                     },
                 ],
-            }
+            },
         ],
+    },
+    resolve: {
+        extensions: ['.js', '.jsx'],
     },
     devServer: {
         static: {
