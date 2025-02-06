@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'https://app.ticketmaster.com/discovery/v2/events.json'; // URL base del backend.
+const BASE_URL = 'http://localhost:5000/api/events'; // URL base del backend.
 
 // Realiza una peticion GET para obtener eventos desde la API.
 export const fetchEventsFromAPI = async (params) => {
