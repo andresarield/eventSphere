@@ -1,5 +1,5 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '.env') }); // Explicitly specify the path to .env
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
@@ -9,7 +9,7 @@ const PORT = 5000;
 
 const apiKey = process.env.API_KEY;
 
-console.log('API Key:', apiKey); // Log the API key to the console
+console.log('API Key:', apiKey);
 
 app.use(cors());
 app.use(express.json());
@@ -24,12 +24,12 @@ app.get('/api/events', async (req, res) => {
         if (date) apiUrl += `&startDateTime=${date}&endDateTime=${date}`;
         if (location) apiUrl += `&city=${location}`;
 
-        console.log('Fetching data from:', apiUrl); // Log the API URL being called
+        console.log('Fetching data from:', apiUrl);
 
         const response = await axios.get(apiUrl);
         res.json(response.data);
     } catch (error) {
-        console.error('Error fetching events:', error.message); // Log the exact error
+        console.error('Error fetching events:', error.message);
         res.status(500).json({ error: 'Failed to fetch events', details: error.message });
     }
 });
