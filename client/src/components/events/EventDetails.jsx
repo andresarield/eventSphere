@@ -1,5 +1,8 @@
+// Importaciones de React y otros elementos "third-party".
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+
+// Importaciones locales
 import routesController from '../../controllers/routesController.js';
 import '../../assets/styles/EventDetails.css';
 
@@ -16,6 +19,7 @@ const EventDetails = () => {
                 setLoading(true); // Activa el estado de carga.
                 const details = await routesController.getEventDetails({ params: { eventId } }); // Obtiene los detalles del evento.
                 setEventDetails(details); // Almacena los detalles en el estado.
+                setError(null); // Limpia cualquier error previo.
             } catch (err) {
                 console.error('Error fetching event details:', err.message);
                 setError('Failed to load event details.');
@@ -27,7 +31,7 @@ const EventDetails = () => {
     }, [eventId]); // Se ejecuta cuando el ID del evento cambia.
 
     if (loading) {
-        return <p>Loading Event Details...</p>;
+        return <div className="loading-indicator">Loading Event Details...</div>;
     }
 
     if (error) {
@@ -35,7 +39,7 @@ const EventDetails = () => {
             // Muestra un mensaje de error y un botón para reintentar. Mejora UX al dar la opción de recuperarse de errores.
             <div className="error-message">
                 <p>{error}</p>
-                <button onClick={() => window.location.reload()}>
+                <button onClick={fetchEventDetails} className="retry-button">
                     Retry
                 </button>
             </div>
@@ -49,10 +53,11 @@ const EventDetails = () => {
                 ← Back
             </button>
             {/* Muestra la imagen del evento si está disponible. Mejora la presentación visual del evento al incluir imgs */}
+            {/* Si el evento no tiene imagen, imprimo un placeholder en vez de dejar un espacio vacío */}
             {eventDetails?.images?.[0]?.url && (
                 <img
-                    src={eventDetails.images[0].url}
-                    alt={`Image for ${eventDetails.name}`}
+                    src={eventDetails?.images?.[0]?.url || 'https://via.placeholder.com/400'}
+                    alt={`Image for ${eventDetails?.name || 'Event'}`}
                     className="event-image"
                 />
             )}

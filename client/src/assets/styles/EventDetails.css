@@ -72,3 +72,12 @@
     border-radius: 8px;
     margin-bottom: 1rem;
 }
+
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+    color: #888;
+}
