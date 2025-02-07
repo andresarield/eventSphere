@@ -11,3 +11,10 @@ const root = createRoot(rootElement);
 
 // Render the App component
 root.render(<App />);
+
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import TestRouter from './testRouter.js';
+
+// ReactDOM.render(<TestRouter />, document.getElementById('root'));

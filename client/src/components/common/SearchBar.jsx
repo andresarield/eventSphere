@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
-import './SearchBar.css';
+import '../../assets/styles/SearchBar.css';
 
 const SearchBar = ({ placeholder = "Search...", onSearch, delay = 300, loading = false }) => { // Componente de barra de búsqueda.
     const [query, setQuery] = useState(''); // Estado del pedido de búsqueda.
