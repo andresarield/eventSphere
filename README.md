@@ -3,65 +3,79 @@ EventSphere is a web application built with React (frontend) and Node.js (backen
 
 To do list:
 
-Add Analytics from Google Analytics or Plausible in index.html.
+Agregar Analytics de Google Analytics o Plausible en index.html.
 
+```
 eventSphere
-├─ client
-│ ├─ dist
-│ │ ├─ bundle.js
-│ │ └─ bundle.js.LICENSE.txt
-│ ├─ public
-│ │ ├─ index.html
-│ │ └─ manifest.json
-│ ├─ src
-│ │ ├─ api
-│ │ │ └─ ticketmasterApi.js
-│ │ ├─ assets
-│ │ │ ├─ fonts
-│ │ │ ├─ forms
-│ │ │ ├─ images
-│ │ │ ├─ styles
-│ │ │ │ ├─ EventDetails.css
-│ │ │ │ ├─ Header.css
-│ │ │ │ └─ SearchBar.css
-│ │ │ └─ svg
-│ │ ├─ components
-│ │ │ ├─ common
-│ │ │ │ └─ SearchBar.jsx
-│ │ │ ├─ events
-│ │ │ │ ├─ EventDetails.jsx
-│ │ │ │ ├─ EventList.jsx
-│ │ │ │ └─ Map.jsx
-│ │ │ ├─ forms
-│ │ │ │ └─ SearchForm.jsx
-│ │ │ └─ layout
-│ │ │ ├─ Footer.js
-│ │ │ └─ Header.js
-│ │ ├─ controllers
-│ │ │ ├─ eventController.js
-│ │ │ ├─ eventDetailsController.js
-│ │ │ └─ routesController.js
-│ │ ├─ hooks
-│ │ │ └─ useDebouncedFetch.js
-│ │ ├─ pages
-│ │ │ ├─ About.js
-│ │ │ ├─ Home.jsx
-│ │ │ └─ SearchResults.jsx
-│ │ ├─ utils
-│ │ │ └─ dateUtils.js
-│ │ ├─ App.js
-│ │ ├─ index.js
-│ │ ├─ styles.css
-│ │ └─ testRouter.js
-│ ├─ .babelrc
-│ ├─ package-lock.json
-│ ├─ package.json
-│ └─ webpack.config.js
-├─ server
-│ ├─ .env
-│ ├─ index.js
-│ ├─ package-lock.json
-│ └─ package.json
-├─ package-lock.json
-├─ package.json
+├─ Backend
+│  ├─ config
+│  │  ├─ .env
+│  │  └─ config.js
+│  ├─ controllers
+│  │  ├─ eventController.js
+│  │  └─ eventDetailsController.js
+│  ├─ middlewares
+│  │  ├─ authMiddleware.js
+│  │  └─ errorHandler.js
+│  ├─ models
+│  │  └─ Event.js
+│  ├─ routes
+│  │  ├─ eventDetailroutes.js
+│  │  ├─ eventRoutes.js
+│  │  └─ userRoutes.js
+│  ├─ services
+│  │  └─ eventService.js
+│  │─ utils
+│  │  └─ dateUtils.js
+│  ├─ index.js
+│  ├─ package-lock.json
+│  └─ package.json
+├─ Frontend
+│  ├─ dist
+│  │  ├─ bundle.js
+│  │  └─ bundle.js.LICENSE.txt
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ public
+│  │  ├─ index.html
+│  │  └─ manifest.json
+│  ├─ src
+│  │  ├─ api
+│  │  │  └─ ticketmasterApi.js
+│  │  ├─ assets
+│  │  │  ├─ fonts
+│  │  │  ├─ images
+│  │  │  ├─ styles
+│  │  │  │  ├─ EventDetails.css
+│  │  │  │  ├─ Header.css
+│  │  │  │  ├─ SearchBar.css
+│  │  │  │  └─ styles.css
+│  │  │  └─ svg
+│  │  ├─ components
+│  │  │  ├─ common
+│  │  │  │  └─ SearchBar.jsx
+│  │  │  ├─ context
+│  │  │  │  └─ AuthContext.js
+│  │  │  ├─ events
+│  │  │  │  ├─ EventDetails.jsx
+│  │  │  │  ├─ EventList.jsx
+│  │  │  │  └─ Map.jsx
+│  │  │  ├─ forms
+│  │  │  │  └─ SearchForm.jsx
+│  │  │  └─ layout
+│  │  │     ├─ Footer.js
+│  │  │     └─ Header.js
+│  │  ├─ hooks
+│  │  │  └─ useDebouncedFetch.js
+│  │  ├─ pages
+│  │  │  ├─ About.js
+│  │  │  ├─ Home.jsx
+│  │  │  └─ SearchResults.jsx
+│  │  │─ store
+│  │  │  └─ store.js
+│  │  ├─ App.js
+│  │  └─ index.js
+│  └─ webpack.config.js
 └─ README.md
+
+```
