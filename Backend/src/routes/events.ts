@@ -7,16 +7,18 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
     try {
         const { keyword, date, category, location } = req.query;
 
-        if (!keyword || typeof keyword !== "string") {
-            res.status(400).json({ error: "Keyword is required and must be a string" });
+        // Validación de keyword solo si se proporciona
+        if (keyword && typeof keyword !== "string") {
+            res.status(400).json({ error: "Keyword must be a string" });
             return; // Salir después de responder
         }
 
+        // Llamada a fetchEvents con los parámetros opcionales
         const events = await fetchEvents({
-            keyword: keyword as string,
-            date: date as string,
-            category: category as string,
-            location: location as string,
+            keyword: keyword as string | undefined,
+            date: date as string | undefined,
+            category: category as string | undefined,
+            location: location as string | undefined,
         });
 
         res.json(events);  // Aquí también se responde sin necesidad de retornar
