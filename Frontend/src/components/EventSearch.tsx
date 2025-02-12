@@ -16,25 +16,35 @@ const EventSearch: React.FC = () => {
     };
 
     const handleSearch = async () => {
+        console.log("Buscando eventos..."); // <-- Verificar si se ejecuta
+        
         let query = '';
-    
-        // Solo agregar los parámetros que estén presentes
+        
         if (keyword) query += `keyword=${keyword}`;
-        if (selectedDate) query += `${query ? '&' : ''}date=${selectedDate.toISOString().split('T')[0]}`;
-        if (category) query += `${query ? '&' : ''}category=${category}`;
-        if (location) query += `${query ? '&' : ''}location=${location}`;
+        if (selectedDate) query += `&date=${selectedDate.toISOString().split('T')[0]}`; // Sólo la fecha (sin hora)
+        if (category) query += `&category=${category}`;
+        if (location) query += `&location=${location}`;
     
-        // Si no se proporcionan filtros, redirigir a la página de todos los eventos
+        console.log("Query construida:", query); // <-- Verificar la query construida
+    
         if (!query) {
-            navigate("/events");  // Usamos navigate en lugar de history.push
+            console.log("No hay filtros, redirigiendo a /events");
+            navigate("/events");  
             return;
         }
     
-        // Realizar la búsqueda con los filtros
-        const response = await fetch(`/api/events?${query}`);
-        const data = await response.json();
-        setEvents(data);
+        try {
+            const response = await fetch(`/api/events?${query}`);
+            const data = await response.json();
+            
+            console.log("Datos recibidos:", data); // <-- Verificar la respuesta
+    
+            setEvents(data);
+        } catch (error) {
+            console.error("Error en la búsqueda:", error);
+        }
     };
+    
 
     return (
         <div>
