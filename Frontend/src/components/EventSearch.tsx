@@ -18,12 +18,15 @@ const EventSearch: React.FC = () => {
     const handleSearch = async () => {
         console.log("Buscando eventos..."); // <-- Verificar si se ejecuta
         
-        let query = '';
+        // Construir la query con los filtros disponibles
+        const queryParams: string[] = [];
         
-        if (keyword) query += `keyword=${keyword}`;
-        if (selectedDate) query += `&date=${selectedDate.toISOString().split('T')[0]}`; // Sólo la fecha (sin hora)
-        if (category) query += `&category=${category}`;
-        if (location) query += `&location=${location}`;
+        if (keyword) queryParams.push(`keyword=${keyword}`);
+        if (selectedDate) queryParams.push(`date=${selectedDate.toISOString().split('T')[0]}`); // Sólo la fecha (sin hora)
+        if (category) queryParams.push(`category=${category}`);
+        if (location) queryParams.push(`location=${location}`);
+    
+        const query = queryParams.join('&');
     
         console.log("Query construida:", query); // <-- Verificar la query construida
     
@@ -34,17 +37,17 @@ const EventSearch: React.FC = () => {
         }
     
         try {
+            // Realizar la solicitud con los parámetros de búsqueda
             const response = await fetch(`/api/events?${query}`);
             const data = await response.json();
             
             console.log("Datos recibidos:", data); // <-- Verificar la respuesta
     
-            setEvents(data);
+            setEvents(data); // Establecer los eventos en el estado
         } catch (error) {
             console.error("Error en la búsqueda:", error);
         }
     };
-    
 
     return (
         <div>
