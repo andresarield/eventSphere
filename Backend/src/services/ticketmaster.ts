@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { API_KEY, API_BASE_URL } from '../config/env';
-import { Event } from '../models/Event';
 
 interface FetchEventsParams {
     keyword?: string;
@@ -14,22 +13,20 @@ export async function fetchEvents({
     date,
     category,
     location,
-}: FetchEventsParams): Promise<Event[]> {
+}: FetchEventsParams): Promise<any[]> {
     try {
-        // Configuración de las fechas de inicio y fin si 'date' está presente
-        const startDateTime = date ? `${date}T00:00:00Z` : undefined;
-        const endDateTime = date ? `${date}T23:59:59Z` : undefined;
+        // Configuración del rango de fechas si 'date' está presente
+        const localStartEndDateTime = date ? `${date}T00:00:00,${date}T23:59:59` : undefined;
 
         // Creación de los parámetros para la solicitud
-        const params: Record<string, string | undefined> = {
+        const params: Record<string, any> = {
             apikey: API_KEY,
             keyword,
-            countryCode: 'US',
-            ...(startDateTime && { startDateTime }),
-            ...(endDateTime && { endDateTime }),
-            ...(category && { classificationName: category }),
-            ...(location && { city: location }),
         };
+
+        if (localStartEndDateTime) params['localStartEndDateTime'] = localStartEndDateTime;
+        if (category) params['classificationName'] = category;
+        if (location) params['city'] = location;
 
         // Log para ver los parámetros que se envían
         console.log('URL de Ticketmaster con parámetros:', API_BASE_URL, params);
@@ -41,16 +38,15 @@ export async function fetchEvents({
         const events = response.data._embedded?.events || [];
 
         // Log para verificar los eventos obtenidos
-        console.log('Eventos obtenidos de la API:', events.map((e: any) => e.dates.start.localDate));
+        console.log('Eventos obtenidos de la API:', events.map((e: any) => ({
+            id: e.id,
+            name: e.name,
+            localDate: e.dates.start.localDate,
+            localTime: e.dates.start.localTime
+        })));
 
-        // Si se ha especificado una fecha, filtramos los eventos por esa fecha
-        const filteredEvents = date ? events.filter((event: any) => event.dates.start.localDate === date) : events;
-
-        // Log para ver los eventos después del filtro por fecha (si aplica)
-        console.log('Eventos después del filtro por fecha:', filteredEvents.map((e: any) => e.dates.start.localDate));
-
-        // Devolvemos los eventos filtrados
-        return filteredEvents;
+        // Devolvemos todos los eventos recibidos sin filtrar adicionalmente
+        return events;
     } catch (error) {
         console.error('Error fetching events:', error);
         return [];
