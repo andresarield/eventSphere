@@ -42,10 +42,9 @@ export async function fetchEvents({
             id: e.id,
             name: e.name,
             localDate: e.dates.start.localDate,
-            localTime: e.dates.start.localTime
+            images: e.images, // Asegurarse de que las imágenes están incluidas
         })));
 
-        // Devolvemos todos los eventos recibidos sin filtrar adicionalmente
         return events;
     } catch (error) {
         console.error('Error fetching events:', error);
