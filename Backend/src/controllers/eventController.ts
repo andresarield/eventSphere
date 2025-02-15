@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { fetchEvents } from '../services/ticketmaster';
+import { fetchEvents } from '../services/ticketmasterService';
 
 export async function getEvents(req: Request, res: Response): Promise<void> {
     try {

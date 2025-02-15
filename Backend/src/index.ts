@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import eventsRouter from "./routes/events";
-import { fetchEvents } from "./services/ticketmaster";  // Importa la función fetchEvents
+import eventsRouter from "./routes/eventsRoutes";
+import { fetchEvents } from "./services/ticketmasterService";  // Importa la función fetchEvents
 
 const app = express();
 const PORT = process.env.PORT || 5000;

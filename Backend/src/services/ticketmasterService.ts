@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { API_KEY, API_BASE_URL } from '../config/env';
+import { API_KEY, API_BASE_URL } from '../config/envConfig';
 
 interface FetchEventsParams {
     keyword?: string;
-    date?: string;
+    date?: string; // Fecha en formato YYYY-MM-DD
     category?: string;
     location?: string;
 }
@@ -42,7 +42,6 @@ export async function fetchEvents({
             id: e.id,
             name: e.name,
             localDate: e.dates.start.localDate,
-            images: e.images, // Asegurarse de que las imágenes están incluidas
         })));
 
         return events;

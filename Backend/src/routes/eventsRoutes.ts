@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express';
-import { fetchEvents } from "../services/ticketmaster";
+import { fetchEvents } from "../services/ticketmasterService";
 
 const router: Router = express.Router();
 
