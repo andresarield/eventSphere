@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { UserModel } from '../models/UserModel';
 import { JWT_SECRET } from '../config/envConfig';
+import { CustomError } from '../utils/errorHandler';
 
 // Registrar un nuevo usuario
 export async function registerUser(email: string, password: string, name: string) {
@@ -13,10 +14,16 @@ export async function registerUser(email: string, password: string, name: string
 // Iniciar sesión con correo electrónico y contraseña
 export async function loginUser(email: string, password: string) {
     const user = await UserModel.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        throw new Error('Invalid credentials');
+    if (!user) {
+        throw new CustomError('Invalid credentials', 401); // Usuario no encontrado
     }
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' }); // Usa JWT_SECRET aquí
+
+    // Verificar si el usuario tiene una contraseña (usuarios de Google pueden no tenerla)
+    if (!user.password || !(await bcrypt.compare(password, user.password))) {
+        throw new CustomError('Invalid credentials', 401); // Credenciales inválidas
+    }
+
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
     return { user, token };
 }
 
@@ -27,6 +34,7 @@ export async function authenticateWithGoogle(googleId: string, email: string, na
         user = new UserModel({ googleId, email, name });
         await user.save();
     }
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' }); // Usa JWT_SECRET aquí
+
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
     return { user, token };
 }
