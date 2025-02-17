@@ -1,23 +1,42 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import { Schema, Document, model, Types } from 'mongoose';
 
+// Interfaz del usuario
 export interface IUser extends Document {
+    _id: Types.ObjectId; // Garantiza que _id sea accesible
     email: string;
-    password?: string; // Opcional si usa Google/Facebook
+    password?: string;
     name: string;
     role: 'user' | 'admin';
-    likedEvents: string[]; // IDs de eventos favoritos
-    googleId?: string; // ID de Google si usa autenticación con Google
-    facebookId?: string; // ID de Facebook si usa autenticación con Facebook
+    likedEvents: Types.ObjectId[];
+    googleId?: string;
+    facebookId?: string;
 }
 
-const UserSchema = new Schema<IUser>({
-    email: { type: String, required: true, unique: true },
-    password: { type: String },
-    name: { type: String, required: true },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' },
-    likedEvents: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
-    googleId: { type: String },
-    facebookId: { type: String },
-});
+// Esquema del usuario
+const userSchema = new Schema<IUser>(
+    {
+        email: { type: String, required: true, unique: true },
+        password: { type: String },
+        name: { type: String, required: true },
+        role: {
+            type: String,
+            enum: ['user', 'admin'],
+            default: 'user',
+        },
+        likedEvents: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Event',
+            },
+        ],
+        googleId: { type: String },
+        facebookId: { type: String },
+    },
+    {
+        timestamps: true,
+    }
+);
 
-export const UserModel = mongoose.model<IUser>('User', UserSchema);
+const UserModel = model<IUser>('User', userSchema);
+
+export { UserModel };

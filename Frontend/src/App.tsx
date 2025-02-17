@@ -2,27 +2,23 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom'; // Solo importa Routes y Route
 import EventSearch from './components/EventSearch';
 import MyEvents from './pages/MyEvents';
+import Register from './pages/Register';
 import Login from './pages/Login';
 import PrivateRoute from './components/PrivateRoute';
 
 const App: React.FC = () => {
     return (
         <Routes>
-            {/* Ruta pública para buscar eventos */}
-            <Route path="/" element={<EventSearch />} />
+            <Route path="/" element={<EventSearch />} /> {/* Ruta para buscar eventos */}
 
-            {/* Ruta pública para iniciar sesión */}
-            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} /> {/* Ruta para el registro */}
 
-            {/* Ruta protegida para "Mis Eventos" */}
-            <Route
-                path="/my-events"
-                element={
-                    <PrivateRoute>
-                        <MyEvents />
-                    </PrivateRoute>
-                }
-            />
+            <Route path="/login" element={<Login />} /> {/* Ruta hacia inicio de sesión */}
+
+            {/* Ruta hacia "Mis Eventos" */}
+            <Route path="/my-events" element={<PrivateRoute />}>
+                <Route index element={<MyEvents />} />
+            </Route>
 
             {/* Redirigir a la página principal si la ruta no existe */}
             <Route path="*" element={<EventSearch />} />

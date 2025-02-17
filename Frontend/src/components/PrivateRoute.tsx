@@ -1,16 +1,10 @@
-import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
-const PrivateRoute: React.FC = () => {
-    const token = localStorage.getItem('token'); // Verifica si hay un token en localStorage
+const PrivateRoute = () => {
+    const { isAuthenticated } = useAuth();
 
-    if (!token) {
-        // Si no hay token, redirige al login
-        return <Navigate to="/login" />;
-    }
-
-    // Si hay token, permite el acceso a la ruta protegida
-    return <Outlet />;
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
